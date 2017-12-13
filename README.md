@@ -1,5 +1,7 @@
 # Web App for Containers - Workshop Agenda
 
+## https://aka.ms/ts-container-workshop
+
 ## Overview
 
 Explore Web App for Containers on Azure which allows you to:
