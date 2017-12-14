@@ -1,6 +1,8 @@
 # Web App for Containers - Workshop Agenda
 
-## https://aka.ms/ts-container-workshop
+## This repo: https://aka.ms/ts-container-workshop
+
+## See also: Microservices, Serverless and Containers Hackfest @ https://github.com/OSSCanada/microhackfest
 
 ## Overview
 
