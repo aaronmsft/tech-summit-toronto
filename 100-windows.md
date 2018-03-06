@@ -44,8 +44,7 @@ For more details , check the [documentation here](https://docs.docker.com/docker
 
 Open Command prompt or Powershell in administrator mode and run the following commands to set up Docker engine and CLI tools
 
-        ? 
-    ```
+ ```
 PS C:\Users\Docker> docker --version
 Docker version 17.03.0-ce, build 60ccb22
 
@@ -55,6 +54,7 @@ docker-compose version 1.11.2, build dfed245
 PS C:\Users\Docker> docker-machine --version
 docker-machine version 0.10.0, build 76ed2a6
 ```
+
 
 ## Pull the image files locally  
 
@@ -139,34 +139,6 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
 
     https://<your_app_name>.azurewebsites.net 
 
-## Obtain a webhook
-
-    # You can obtain the Webhook URL 
-     
-    az webapp deployment container show-cd-url -n sname1 -g rgname
-
-    # For the Webhook URL, you need to have the following endpoint: 
-    
-    https://<publishingusername>:<publishingpwd>@<your_app_name>.scm.azurewebsites.net/docker/hook
-
-    # You can obtain your publishingusername and publishingpwd by downloading the web app publish profile using the Azure portal.1
-
-## Configure CI/CD with Docker Hub
-You can enable the continuous deployment feature using Azure CLI and executing the following command
-
-```
-az webapp deployment container config -n sname -g rgname -e true
-```
-You can obtain the Webhook URL using Azure CLI and executing the following command
-```
-az webapp deployment container show-cd-url -n sname1 -g rgname
-```
-
-For the Webhook URL, you need to have the following endpoint:
-```https://<publishingusername>:<publishingpwd>@<sitename>.scm.azurewebsites.net/docker/hook.```
-
-Go to your Docker Hub page , click Webhooks, then [CREATE A WEBHOOK](https://docs.docker.com/docker-hub/webhooks/) . With your webhook, you specify a target URL as created above ```https://<publishingusername>:<publishingpwd>@<sitename>.scm.azurewebsites.net/docker/hook.```
- 
 ##  Push an update to Docker image 
 
 Go back to Azure Virtual machine to make more changes. Build the image and then push it to your Docker Hub repository. Follow the steps above to do the same
