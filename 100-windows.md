@@ -71,7 +71,7 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
     # Sample output:
     REPOSITORY                                         TAG                 IMAGE ID                         CREATED             SIZE 
     django-starter-app                                 latest              <your_image_id>                  18 minutes ago      735MB? 
-
+   
 ## Login to Azure and Launch Azure Cloud Shell 
 
     Login via portal and launch cloud shell  https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart  
@@ -82,41 +82,58 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
 
     Tip
 
-    You are automatically authenticated for Azure CLI 2.0 in every session. 
-    ? 
-    If you have multiple subscriptions, please use the following to choose the default subscription as the Azure Pass provided to you  
-    ? 
+    - You are automatically authenticated for Azure CLI 2.0 in every session.
+    - If you have multiple subscriptions, please use the following to choose the default subscription as the Azure Pass provided to you 
+    
     az account set --subscription my-subscription-name 
 
 ## Create a resource group 
 
-    az group create --name myResourceGroup --location "West US" 
-    ? 
-    # Use the?[az appservice list-locations](https://docs.microsoft.com/en-us/cli/azure/appservice?view=azure-cli-latest#list-locations)?Azure CLI command to list available locations. 
+    # Use the[az appservice list-locations](https://docs.microsoft.com/en-us/cli/azure/appservice?view=azure-cli-latest#list-locations) Azure CLI command to list available locations. 
+    # Create a resource group for the ACR and web app 
+    
+    az group create --name myResourceGroup --location "West US"    
+   
 
 ## Create Azure Container registry 
 
    # Create ACR server
 
-   az acr create --resource-group myResourceGroup --name myContainerRegistry007 --sku Basic
-   # Login to ACR to pull or push images 
+     az acr create --resource-group myResourceGroup --name myContainerRegistry --sku Basic
+     
+   # Get Login credentials 
+   
+    az acr credential show --name myContainerRegistry 
+    
+   # Login to ACR to pull or push images . Use the credentials received from the previous command
 
-    az acr login --name <acrName>
-
-   # Tag image to ACR login server . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
-  az acr list --resource-group myResourceGroup --query "[].{acrLoginServer:loginServer}" --output table
+    docker login myContainerRegistry.azurecr.io -u <YOUR-USERNAME> -p <YOUR-PASSOWRD>    
+            
+   # Tag the locally built image to ACR repo. Replace ```your_image_id``` with Image ID from locally building your image above. 
+   
+    docker tag <your_image_id> myContainerRegistry.azurecr.io/starterapp:latest
 
    # Push docker image to ACR . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
    
-   docker push <acrLoginServer>/starterapp:latest
+    docker push myContainerRegistry.azurecr.io/starterapp:latest
 
+   # Verify the Push was successful 
+   
+   az acr repository list -n myContainerRegistry.azurecr.io
+   
 ## Create an app service plan
 
     az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku S1 --is-linux
 
 ## Create a web app
 
-    az webapp create --name <app_name> --resource-group myResourceGroup --plan myAppServicePlan --deployment-container-image-name <your-docker-user-name>/starterapp:latest
+    az webapp create --name <app_name> --resource-group myResourceGroup --plan myAppServicePlan 
+    
+## Configure web app to use ACR image 
+```az webapp config container set``` command to assign the custom Docker image to the web app. Replace <app_name>, <docker-registry-server-url>, <registry-username>, and <password>. For Azure Container Registry, <docker-registry-server-url> is in the format https://<azure-container-registry-name>.azurecr.io.
+ 
+       az webapp config container set --name <app_name> --resource-group myResourceGroup --docker-custom-image-name  myContainerRegistry.azurecr.io/starterapp --docker-registry-server-url https://myContainerRegistry.azurecr.io --docker-registry-server-user <registry-username> --docker-registry-server-password <password>
+ 
 
 ## Restart your app
 
@@ -135,3 +152,35 @@ Go back to Azure Virtual machine to make more changes. Build the image and then 
 ## Browse the app 
 
     http://<your_app_name>.azurewebsites.net
+
+# Configure CI/CD with ACR 
+
+## Obtain a webhook
+
+    # You can obtain the Webhook URL 
+     
+    az webapp deployment container show-cd-url -n sname1 -g rgname
+
+    # For the Webhook URL, you need to have the following endpoint: 
+    
+    https://<publishingusername>:<publishingpwd>@<your_app_name>.scm.azurewebsites.net/docker/hook
+
+    # You can obtain your publishingusername and publishingpwd by downloading the web app publish profile using the Azure portal.
+    
+## Add a webhook to ACR 
+ Replace ```<webhook-url-web app>``` with web hook URL endpoint ```https://<publishingusername>:<publishingpwd>@<your_app_name>.scm.azurewebsites.net/docker/hook```
+ 
+    az acr webhook create --registry myContainerRegistry --name myacrwebhook01 --actions push --uri <webhook-url-web app>
+ 
+ When the image gets updated, the web app get updated automatically with the new image.
+ 
+  
+##  Push an update to Docker image 
+
+Go back to Azure Virtual machine to make more changes. Build the image and then push it to your Docker Hub repository. Follow the steps above to do the same
+
+## Browse the app 
+
+    http://<your_app_name>.azurewebsites.net
+
+
