@@ -119,7 +119,7 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
  
     # Verify the Push was successful 
    
-   az acr repository list -n myContainerRegistry.azurecr.io
+    az acr repository list -n myContainerRegistry.azurecr.io
    
 ## Create an app service plan
 
