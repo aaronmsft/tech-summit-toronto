@@ -97,27 +97,27 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
 
 ## Create Azure Container registry 
 
-   # Create ACR server
+    # Create ACR server
 
      az acr create --resource-group myResourceGroup --name myContainerRegistry --sku Basic
      
-   # Get Login credentials 
+    # Get Login credentials 
    
     az acr credential show --name myContainerRegistry 
     
-   # Login to ACR to pull or push images . Use the credentials received from the previous command
+    # Login to ACR to pull or push images . Use the credentials received from the previous command
 
     docker login myContainerRegistry.azurecr.io -u <YOUR-USERNAME> -p <YOUR-PASSOWRD>    
             
-   # Tag the locally built image to ACR repo. Replace ```your_image_id``` with Image ID from locally building your image above. 
+    # Tag the locally built image to ACR repo. Replace ```your_image_id``` with Image ID from locally building your image above. 
    
     docker tag <your_image_id> myContainerRegistry.azurecr.io/starterapp:latest
 
-   # Push docker image to ACR . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
+    # Push docker image to ACR . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
    
     docker push myContainerRegistry.azurecr.io/starterapp:latest
-
-   # Verify the Push was successful 
+ 
+    # Verify the Push was successful 
    
    az acr repository list -n myContainerRegistry.azurecr.io
    
