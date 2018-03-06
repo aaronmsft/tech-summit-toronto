@@ -9,36 +9,26 @@ The purpose of this Hands on Lab (HOL) is to have an understanding of how to:
 6. Create a webhook to update your Azure App Service when your custom Docker Image has been updated (new updates pushed to the Container Registry)
 
  
-## Notes: 
+## Pre-requisites:
 
-1. Docker Hub can be replaced with Azure Container Registry (ACR). Use the directions to push an image to ACR instead of Docker Hub related commands in the lab below: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli
-2. You will require access to a native Linux Environment for this Hands on Lab (HOL)
+1. Azure Subscription or Sign up for Azure Fre Trial
+2. You will require access to a Windows Environment with Docker for this Hands on Lab (HOL)
 
 # Tasks
 
-## Create a Windows Environment
-   
+## Before you install Docker on Windows 
 
-If you choose to use a Windows environment for this Hnads on Lab 
+**README FIRST for Docker Toolbox and Docker Machine users**: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain. VirtualBox VMs created with docker-machine (including the default one typically created during Toolbox install) no longer start. These VMs cannot be used side-by-side with Docker for Windows. However, you can still use docker-machine to manage remote VMs.   
 
-1. Install [Docker Toolbox](https://docs.docker.com/toolbox/overview/), which uses Oracle Virtual Box instead of Hyper-V.
-     
-2. README FIRST for Docker Toolbox and Docker Machine users: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain. VirtualBox VMs created with docker-machine (including the default one typically created during Toolbox install) no longer start. These VMs cannot be used side-by-side with Docker for Windows. However, you can still use docker-machine to manage remote VMs.
-     
-3. Virtualization must be enabled. Typically, virtualization is enabled by default. This is different from having Hyper-V enabled. For more detail see Virtualization must be enabled in Troubleshooting.
-     
-4. The current version of Docker for Windows runs on 64bit Windows 10 Pro, Enterprise and Education (1607 Anniversary Update, Build 14393 or later).
-    
-5. Containers and images created with Docker for Windows are shared between all user accounts on machines where it is installed. This is because all Windows accounts use the same VM to build and run containers.
-     
-6. Nested virtualization scenarios, such as running Docker for Windows on a VMWare or Parallels instance, might work, but come with no guarantees. 
+1. Virtualization must be enabled. Typically, virtualization is enabled by default. This is different from having Hyper-V enabled. For more detail see Virtualization must be enabled in Troubleshooting.
+2.  The current version of Docker for Windows runs on 64bit Windows 10 Pro, Enterprise and Education (1607 Anniversary Update, Build 14393 or later).
+3. Containers and images created with Docker for Windows are shared between all user accounts on machines where it is installed. This is because all Windows accounts use the same VM to build and run containers.
 
-For more information, see Running Docker for Windows in nested virtualization scenarios
-
-
+## Install Docker Tool box 
+Install [Docker Toolbox](https://docs.docker.com/toolbox/overview/), which uses Oracle Virtual Box instead of Hyper-V. 
 What the Docker for Windows install includes: The installation provides Docker Engine, Docker CLI client, Docker Compose, Docker Machine, and Kitematic.
-For more details , check the [documentation here](https://docs.docker.com/docker-for-windows/install/#about-windows-containers-and-windows-server-2016)
 
+For  full documentation on installing Docker toolbox , click [here](https://docs.docker.com/toolbox/toolbox_install_windows/#step-2-install-docker-toolbox)
 
 ## Check if docker is installed 
 
@@ -54,7 +44,6 @@ docker-compose version 1.11.2, build dfed245
 PS C:\Users\Docker> docker-machine --version
 docker-machine version 0.10.0, build 76ed2a6
 ```
-
 
 ## Pull the image files locally  
 
@@ -117,7 +106,7 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
    # Tag image to ACR login server . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
   az acr list --resource-group myResourceGroup --query "[].{acrLoginServer:loginServer}" --output table
 
-   #Push docker image to ACR . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
+   # Push docker image to ACR . Replace ```<acrLoginServer>``` with the login server name of your ACR instance.
    
    docker push <acrLoginServer>/starterapp:latest
 
