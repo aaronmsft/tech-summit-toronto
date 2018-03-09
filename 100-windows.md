@@ -70,13 +70,14 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
     
     # Sample output:
     REPOSITORY                                         TAG                 IMAGE ID                         CREATED             SIZE 
-    django-starter-app                                 latest              <your_image_id>                  18 minutes ago      735MB? 
+    starterapp                                         latest              <your_image_id>                  18 minutes ago      735MB? 
    
 ## Login to Azure and Launch Azure Cloud Shell 
 
     Login via portal and launch cloud shell  https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart  
     
     1. Launch?Cloud Shell?from the top navigation of the Azure portal? 
+    If it's the first time you open the Cloud Shell:
     2. Select a subscription to create a storage account and Azure file share 
     3. Select "Create storage" 
 
@@ -89,23 +90,33 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
 
 ## Create a resource group 
 
+    # Use the Azure Cloud Shell console for the next commands.
+    
     # Use the[az appservice list-locations](https://docs.microsoft.com/en-us/cli/azure/appservice?view=azure-cli-latest#list-locations) Azure CLI command to list available locations. 
     # Create a resource group for the ACR and web app 
     
     az group create --name myResourceGroup --location "West US"    
    
 
-## Create Azure Container registry 
+## Create Azure Container Registry 
 
-    # Create ACR server
+    # Create a ACR container registry. Choose a unique name instead of myContainerRegistry
 
      az acr create --resource-group myResourceGroup --name myContainerRegistry --sku Basic
      
+    # Enable admin credentials on the new registry
+    
+    az acr update -n myContainerRegistry --admin-enabled true
+     
     # Get Login credentials 
    
-    az acr credential show --name myContainerRegistry 
+    az acr credential show --name myContainerRegistry
+  
+## Upload your image to the ACR registry 
+
+    # Use your previously used local command line (PowerShell or CMD) for the next commands. 
     
-    # Login to ACR to pull or push images . Use the credentials received from the previous command
+    # Login to ACR to pull or push images. Use the credentials received from the previous command. Ignore the security warning
 
     docker login myContainerRegistry.azurecr.io -u <YOUR-USERNAME> -p <YOUR-PASSOWRD>    
             
@@ -117,17 +128,19 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
    
     docker push myContainerRegistry.azurecr.io/starterapp:latest
  
-    # Verify the Push was successful 
+    # Verify the Push was successful. Do it in the Azure Cloud Shell
    
-    az acr repository list -n myContainerRegistry.azurecr.io
+    az acr repository list -n myContainerRegistry
    
 ## Create an app service plan
+  
+    #Executenext commands in the Azure Cloud Shell
 
     az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku S1 --is-linux
 
-## Create a web app
+## Create a web app. Give it a unique name. Specify any runtime (it will be replaced later)
 
-    az webapp create --name <app_name> --resource-group myResourceGroup --plan myAppServicePlan 
+    az webapp create --name <app_name> --resource-group myResourceGroup --plan myAppServicePlan --runtime "PHP|7.0"
     
 ## Configure web app to use ACR image 
 ```az webapp config container set``` command to assign the custom Docker image to the web app. Replace <app_name>, <docker-registry-server-url>, <registry-username>, and <password>. For Azure Container Registry, <docker-registry-server-url> is in the format https://<azure-container-registry-name>.azurecr.io.
@@ -159,7 +172,7 @@ Go back to Azure Virtual machine to make more changes. Build the image and then 
 
     # You can obtain the Webhook URL 
      
-    az webapp deployment container show-cd-url -n sname1 -g rgname
+    az webapp deployment container show-cd-url -n <your_app_name> -g myResourceGroup
 
     # For the Webhook URL, you need to have the following endpoint: 
     
