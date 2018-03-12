@@ -7,7 +7,6 @@ The purpose of this Hands on Lab (HOL) is to have an understanding of how to:
 4. Create an Azure App Service (Specifically a "Web App for Containers" Service)
 5. Deploy an instance of your custom Docker Image (container) to Azure App Service
 6. Create a webhook to update your Azure App Service when your custom Docker Image has been updated (new updates pushed to the Container Registry)
-
  
 ## Pre-requisites:
 
@@ -20,9 +19,7 @@ The purpose of this Hands on Lab (HOL) is to have an understanding of how to:
 
 **README FIRST for Docker Toolbox and Docker Machine users**: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain. VirtualBox VMs created with docker-machine (including the default one typically created during Toolbox install) no longer start. These VMs cannot be used side-by-side with Docker for Windows. However, you can still use docker-machine to manage remote VMs.   
 
-1. Virtualization must be enabled. Typically, virtualization is enabled by default. This is different from having Hyper-V enabled. For more detail see Virtualization must be enabled in Troubleshooting.
-2.  The current version of Docker for Windows runs on 64bit Windows 10 Pro, Enterprise and Education (1607 Anniversary Update, Build 14393 or later).
-3. Containers and images created with Docker for Windows are shared between all user accounts on machines where it is installed. This is because all Windows accounts use the same VM to build and run containers.
+Chekc out [this video](https://www.youtube.com/watch?v=ymlWt1MqURY) to install Docker on Windows to get started.  
 
 ## Install Docker Tool box 
 Install [Docker Toolbox](https://docs.docker.com/toolbox/overview/), which uses Oracle Virtual Box instead of Hyper-V. 
