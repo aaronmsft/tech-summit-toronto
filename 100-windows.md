@@ -1,4 +1,4 @@
-# Hands on Lab 100 - Using Docker Hub + Django Poll Application  
+# Hands on Lab 100 - Using Docker Hub + Django Poll Application   [ Using Windows Environment ] 
 
 The purpose of this Hands on Lab (HOL) is to have an understanding of how to:
 1. Install Docker Host and Docker CLI tools
@@ -19,7 +19,7 @@ The purpose of this Hands on Lab (HOL) is to have an understanding of how to:
 
 **README FIRST for Docker Toolbox and Docker Machine users**: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain. VirtualBox VMs created with docker-machine (including the default one typically created during Toolbox install) no longer start. These VMs cannot be used side-by-side with Docker for Windows. However, you can still use docker-machine to manage remote VMs.   
 
-Chekc out [this video](https://www.youtube.com/watch?v=ymlWt1MqURY) to install Docker on Windows to get started.  
+Chekc out [this video](https://www.youtube.com/watch?v=S7NVloq0EBc) to install Docker on Windows to get started.  
 
 ## Install Docker Tool box 
 Install [Docker Toolbox](https://docs.docker.com/toolbox/overview/), which uses Oracle Virtual Box instead of Hyper-V. 
