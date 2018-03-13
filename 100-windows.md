@@ -66,9 +66,10 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
     cd docker-django-webapp-linux 
 
 ## Locally build a Docker image  
+**Always run docker CLI commands on administrator mode in Powershell on Command Prompt**
 
     # You can edit the app by making changes to the html files under /app/templates/app folder. use vim [filepath] to open the file to edit. Here are commands if you are not familiar with vim  
-    ? 
+    
     # Now  build the image  [Usage : docker build -t [Image Name]:[tag]  Dockerfile Path]. Since you are inside  docker-django-webapp-linux folder you can use . to select the docker file in the current working directory 
 
     docker build -t starterapp:latest . 
@@ -124,7 +125,7 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
 
     # Use your previously used local command line (PowerShell or CMD) for the next commands. 
     
-    # Login to ACR to pull or push images. Use the credentials received from the previous command. Ignore the security warning
+    # Login to ACR to pull or push images. Use the credentials received from the previous command. Ignore the security warning. Run docker CLI commands on administrator mode in Powershell on Command Prompt
 
     docker login myContainerRegistry.azurecr.io -u <YOUR-USERNAME> -p <YOUR-PASSOWRD>    
             
