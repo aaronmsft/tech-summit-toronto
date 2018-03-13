@@ -1,9 +1,5 @@
 # Web App for Containers - Workshop Agenda
 
-## This repo: https://aka.ms/ts-container-workshop
-
-## See also: Microservices, Serverless and Containers Hackfest @ https://github.com/OSSCanada/microhackfest
-
 ## Overview
 
 Explore Web App for Containers on Azure which allows you to:
@@ -36,7 +32,5 @@ All attendees:
     Break (15 minutes)  
     Hands on Lab in session 
 
-## Choose either OR both of:
-
+## Lab Content 
 - [Hands on Lab 100 - Using Docker Hub + Django Poll Application](100.md)
-- [Hands on Lab 200 - Deploy using Jenkins Build sysDeploy using Jenkins Build ](200.md)
