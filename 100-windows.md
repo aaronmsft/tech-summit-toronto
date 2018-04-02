@@ -163,21 +163,21 @@ Install [GIT](https://git-scm.com/download/win) if not already installed on your
  
        az webapp config container set --name <app_name> --resource-group myResourceGroup --docker-custom-image-name  myContainerRegistry.azurecr.io/starterapp --docker-registry-server-url https://myContainerRegistry.azurecr.io --docker-registry-server-user <registry-username> --docker-registry-server-password <password>
  
-## Step 4 : Restart your app
+### Step 4 : Restart your app
 
     # Run this command 
      
     az webapp restart --resource-group myResourceGroup --name <your_app_name>
 
-## Step 5: Browse your app
+### Step 5: Browse your app
 
     https://<your_app_name>.azurewebsites.net 
 
-## Step 6 :  Push an update to Docker image 
+### Step 6 :  Push an update to Docker image 
 
 Go back to Azure Virtual machine to make more changes. Build the image and then push it to your Docker Hub repository. Follow the steps above to do the same
 
-## Step 7:  Browse the app 
+### Step 7:  Browse the app 
 
     http://<your_app_name>.azurewebsites.net
 
@@ -203,7 +203,7 @@ Go back to Azure Virtual machine to make more changes. Build the image and then 
  When the image gets updated, the web app get updated automatically with the new image.
  
   
-## Step 3: Push an update to Docker image 
+### Step 3: Push an update to Docker image 
 
 Go back to Azure Virtual machine to make more changes. Build the image and then push it to your Docker Hub repository. Follow the steps above to do the same
 
